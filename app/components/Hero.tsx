@@ -1,5 +1,8 @@
 import LoteriasCaixaIcon from "@/public/icons/LoteriasCaixaIcon";
 import Link from "next/link";
+
+import { MODALIDADES_LOTERIA } from "../config";
+
 export default function Hero() {
   return (
     <section>
@@ -52,110 +55,22 @@ export default function Hero() {
               Jogos
             </h1>
             <div className="bg-white rounded-md list-none  text-center font-bold text-sm">
-              <li className="py-3 border-b-2 group">
-                <Link
-                  href={"/estatisticas/maismilionaria"}
-                  className="list-nonehover:text-[#59629F] flex justify-center items-center gap-4 text-[#2E317A] px-4"
-                >
-                  <LoteriasCaixaIcon
-                    className="w-6 h-6 group-hover:hidden"
-                    primaryColor="#2E317A"
-                    secondaryColor="#59629F"
-                  />
-                  <LoteriasCaixaIcon className="w-6 h-6 hidden group-hover:inline-block group-hover:scale-105" />
-                  <span>+MILIONÁRIA</span>
-                </Link>
-              </li>
-              <li className="py-3 border-b-2">
-                <a
-                  href="#"
-                  className="list-none  hover:text-[#8FCBB3] flex justify-center items-center gap-2 text-[#209869]"
-                >
-                  <LoteriasCaixaIcon className="w-6 h-6 " />
-                  MEGA-SENA
-                </a>
-              </li>
-              <li className="py-3 border-b-2">
-                <a
-                  href="#"
-                  className="list-none  hover:text-indigo-600 flex justify-center items-center gap-2"
-                >
-                  <LoteriasCaixaIcon className="w-6 h-6 text-[#930089]" />
-                  LOTOFÁCIL
-                </a>
-              </li>
-              <li className="py-3 border-b-2">
-                <a
-                  href="#"
-                  className="list-none  hover:text-indigo-600 flex justify-center items-center gap-2"
-                >
-                  <LoteriasCaixaIcon className="w-6 h-6 text-[#260085]" />
-                  QUINA
-                </a>
-              </li>
-              <li className="py-3 border-b-2">
-                <a
-                  href="#"
-                  className="list-none  hover:text-indigo-600 flex justify-center items-center gap-2"
-                >
-                  <LoteriasCaixaIcon className="w-6 h-6 text-[#F78100]" />
-                  LOTOMANIA
-                </a>
-              </li>
-              <li className="py-3 border-b-2">
-                <a
-                  href="#"
-                  className="list-none  hover:text-indigo-600 flex justify-center items-center gap-2"
-                >
-                  <LoteriasCaixaIcon className="w-6 h-6 text-[#02FF02]" />
-                  TIMEMANIA
-                </a>
-              </li>
-              <li className="py-3 border-b-2">
-                <a
-                  href="#"
-                  className="list-none  hover:text-indigo-600 flex justify-center items-center gap-2"
-                >
-                  <LoteriasCaixaIcon className="w-6 h-6 text-[#A61324]" />
-                  DUPLA SENA
-                </a>
-              </li>
-              <li className="py-3 border-b-2">
-                <a
-                  href="#"
-                  className="list-none  hover:text-indigo-600 flex justify-center items-center gap-2"
-                >
-                  <LoteriasCaixaIcon className="w-6 h-6 text-[#103099]" />
-                  FEDERAL
-                </a>
-              </li>
-              <li className="py-3 border-b-2">
-                <a
-                  href="#"
-                  className="list-none  hover:text-indigo-600 flex justify-center items-center gap-2"
-                >
-                  <LoteriasCaixaIcon className="w-6 h-6 text-[#FB1F00]" />
-                  LOTECA
-                </a>
-              </li>
-              <li className="py-3 border-b-2">
-                <a
-                  href="#"
-                  className="list-none  hover:text-indigo-600 flex justify-center items-center gap-2"
-                >
-                  <LoteriasCaixaIcon className="w-6 h-6 text-[#CB852B]" />
-                  DIA DE SORTE
-                </a>
-              </li>
-              <li className="py-3 ">
-                <a
-                  href="#"
-                  className="list-none  hover:text-indigo-600 flex justify-center items-center gap-2"
-                >
-                  <LoteriasCaixaIcon className="w-6 h-6 text-[#A8CF44]" />
-                  SUPER SETE
-                </a>
-              </li>
+              {MODALIDADES_LOTERIA.map((e, i) => (
+                <li key={i} className="py-3 border-b-2 group">
+                  <Link
+                    href={`/estatisticas/${e.name}`}
+                    className={`list-none hover:text-[${e.secondaryColor}] flex justify-center items-center gap-4 text-[${e.primaryColor}] px-4`}
+                  >
+                    <LoteriasCaixaIcon
+                      className="w-6 h-6 group-hover:hidden"
+                      primaryColor={e.primaryColor}
+                      secondaryColor={e.secondaryColor}
+                    />
+                    <LoteriasCaixaIcon className="w-6 h-6 hidden group-hover:inline-block group-hover:scale-105" />
+                    <span>{e.title}</span>
+                  </Link>
+                </li>
+              ))}
             </div>
           </div>
         </div>

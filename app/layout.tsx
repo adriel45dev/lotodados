@@ -1,6 +1,9 @@
+"use client";
 import Navbar from "./components/Navbar";
 import "./globals.css";
 import type { Metadata } from "next";
+import { QueryClientProvider } from "react-query";
+import { queryClient } from "./services/queryClient";
 
 export const metadata: Metadata = {
   title: "Loto Dados",
@@ -15,8 +18,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Navbar />
-        {children}
+        <QueryClientProvider client={queryClient}>
+          <Navbar />
+          {children}
+        </QueryClientProvider>
       </body>
     </html>
   );

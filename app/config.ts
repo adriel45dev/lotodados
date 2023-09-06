@@ -5,7 +5,7 @@ type Jogos = {
   secondaryColor: string;
 }[];
 
-const JOGOS: Jogos = [
+const MODALIDADES_LOTERIA: Jogos = [
   {
     title: "+MILIONÁRIA",
     name: "maismilionaria",
@@ -20,7 +20,7 @@ const JOGOS: Jogos = [
   },
 ];
 
-export { JOGOS };
+export { MODALIDADES_LOTERIA };
 
 // [
 //     "maismilionaria",

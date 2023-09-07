@@ -2,13 +2,13 @@ import { SVGProps, useState } from "react";
 
 interface LoteriasCaixaIconProps {
   primaryColor?: string;
-  secondaryColor?: string;
+  secondColor?: string;
   handleMouseOver?: () => void;
 }
 
 const LoteriasCaixaIcon = ({
   primaryColor = "currentColor",
-  secondaryColor = "currentColor",
+  secondColor = "currentColor",
   ...props
 }: SVGProps<SVGSVGElement> & LoteriasCaixaIconProps) => {
   return (
@@ -61,7 +61,7 @@ const LoteriasCaixaIcon = ({
         <g clipPath="url(#b)">
           <g clipPath="url(#c)">
             <path
-              fill={primaryColor}
+              fill={secondColor}
               d="m249.746-12.625 141.066 141.063L267.38 251.87 126.316 110.805Zm0 0"
             />
           </g>
@@ -71,7 +71,7 @@ const LoteriasCaixaIcon = ({
         <g clipPath="url(#e)">
           <g clipPath="url(#f)">
             <path
-              fill={primaryColor}
+              fill={secondColor}
               d="M135.133 387.512-5.934 246.449 117.5 123.016l141.063 141.066Zm0 0"
             />
           </g>
@@ -81,7 +81,7 @@ const LoteriasCaixaIcon = ({
         <g clipPath="url(#h)">
           <g clipPath="url(#i)">
             <path
-              fill={secondaryColor}
+              fill={primaryColor}
               d="M391.559 244.953 250.492 386.02 127.06 262.586 268.125 121.52Zm0 0"
             />
           </g>
@@ -91,7 +91,7 @@ const LoteriasCaixaIcon = ({
         <g clipPath="url(#k)">
           <g clipPath="url(#l)">
             <path
-              fill={secondaryColor}
+              fill={primaryColor}
               d="M-8.176 129.934 132.887-11.133 256.32 112.301 115.254 253.363Zm0 0"
             />
           </g>

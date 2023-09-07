@@ -1,4 +1,5 @@
 import LoteriasCaixaIcon from "@/public/icons/LoteriasCaixaIcon";
+
 import Link from "next/link";
 
 import { MODALIDADES_LOTERIA } from "../config";
@@ -54,23 +55,33 @@ export default function Hero() {
             <h1 className="text-center text-xl my-4  bg-[#F99500] py-2 rounded-md border-b-2 cursor-pointer  text-white">
               Jogos
             </h1>
-            <div className="bg-white rounded-md list-none  text-center font-bold text-sm">
-              {MODALIDADES_LOTERIA.map((e, i) => (
-                <li key={i} className="py-3 border-b-2 group">
+            <div className="bg-white rounded-md list-none text-center font-bold text-sm">
+              {MODALIDADES_LOTERIA.map((e, i) => {
+                return (
                   <Link
                     href={`/estatisticas/${e.name}`}
-                    className={`list-none hover:text-[${e.secondaryColor}] flex justify-center items-center gap-4 text-[${e.primaryColor}] px-4`}
+                    key={i}
+                    className={
+                      "py-4 border-b-2 group hover:scale-125 hover:bg-orange-100 rounded-2xl flex flex-col items-center"
+                    }
+                    style={{
+                      color: e.primaryColor,
+                    }}
                   >
-                    <LoteriasCaixaIcon
-                      className="w-6 h-6 group-hover:hidden"
-                      primaryColor={e.primaryColor}
-                      secondaryColor={e.secondaryColor}
-                    />
-                    <LoteriasCaixaIcon className="w-6 h-6 hidden group-hover:inline-block group-hover:scale-105" />
-                    <span>{e.title}</span>
+                    <div className="grid grid-cols-6 justify-center items-center gap-3 px-auto ">
+                      <div className="col-span-2 flex justify-end items-center ">
+                        <LoteriasCaixaIcon
+                          className="w-6 h-6"
+                          primaryColor={e.primaryColor}
+                          secondColor={e.secondaryColor}
+                        />
+                      </div>
+
+                      <span className="col-span-4 text-start">{e.title}</span>
+                    </div>
                   </Link>
-                </li>
-              ))}
+                );
+              })}
             </div>
           </div>
         </div>

@@ -1,9 +1,12 @@
-"use client";
+// "use client";
 import Navbar from "./components/Navbar";
+import QueryClient from "./components/QueryClient";
 import "./globals.css";
 import type { Metadata } from "next";
-import { QueryClientProvider } from "react-query";
-import { queryClient } from "./services/queryClient";
+import Script from "next/script";
+
+// import { QueryClientProvider } from "react-query";
+// import { queryClient } from "./services/queryClient";
 
 export const metadata: Metadata = {
   title: "Loto Dados",
@@ -18,10 +21,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <QueryClientProvider client={queryClient}>
+        {/* <QueryClientProvider client={queryClient}>
           <Navbar />
           {children}
-        </QueryClientProvider>
+        </QueryClientProvider> */}
+        <QueryClient>
+          <Navbar />
+          {children}
+        </QueryClient>
+        <Script src="../node_modules/flowbite/dist/flowbite.min.js"></Script>
       </body>
     </html>
   );

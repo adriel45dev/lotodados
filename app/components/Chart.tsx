@@ -16,158 +16,177 @@ type CharProps = {
   modalidade?: Modalidade | undefined;
 };
 
+type TChartData = {
+  x: string;
+  y: number;
+};
+
+type TDezenas = string[][];
+
 export default function Chart({ data, modalidade }: CharProps) {
   const [totalConcursos, setTotalConcursos] = useState(0);
   const [max, setMax] = useState<number | null>(0);
   const [min, setMin] = useState<number | null>(0);
 
-  useEffect(() => {
-    if (data) {
-      console.log("update");
+  const loadChart = (chartData: TChartData[]) => {
+    const options = {
+      colors: ["#1A56DB", "#FDBA8C"],
+      series: [
+        {
+          name: "Eventos",
+          color: "#1A56DB",
+          data: chartData,
+        },
+      ],
+      chart: {
+        type: "bar",
+        width: "100%",
+        height: "320px",
+        fontFamily: "Inter, sans-serif",
+        toolbar: {
+          show: false,
+        },
+      },
+      plotOptions: {
+        bar: {
+          horizontal: false,
+          columnWidth: "70%",
+          borderRadiusApplication: "end",
+          borderRadius: 8,
+        },
+      },
+      tooltip: {
+        shared: true,
+        intersect: false,
+        style: {
+          fontFamily: "Inter, sans-serif",
+        },
+      },
+      states: {
+        hover: {
+          filter: {
+            type: "darken",
+            value: 1,
+          },
+        },
+      },
+      stroke: {
+        show: true,
+        width: 0,
+        colors: ["transparent"],
+      },
+      grid: {
+        show: false,
+        strokeDashArray: 4,
+        padding: {
+          left: 2,
+          right: 2,
+          top: -14,
+        },
+      },
+      dataLabels: {
+        enabled: false,
+      },
+      legend: {
+        show: false,
+      },
+      xaxis: {
+        floating: false,
+        labels: {
+          show: true,
+          style: {
+            fontFamily: "Inter, sans-serif",
+            cssClass: "text-xs font-normal fill-gray-500 dark:fill-gray-400",
+          },
+        },
+        axisBorder: {
+          show: false,
+        },
+        axisTicks: {
+          show: false,
+        },
+      },
+      yaxis: {
+        show: false,
+      },
+      fill: {
+        opacity: 1,
+      },
+    };
 
+    if (
+      document.getElementById("column-chart") &&
+      typeof ApexCharts !== "undefined"
+    ) {
+      const chart = new ApexCharts(
+        document.getElementById("column-chart"),
+        options
+      );
+      chart.render();
+    }
+  };
+
+  const findMaxAndMinEvents = (chartData: TChartData[]) => {
+    let maxY = chartData[0].y;
+    let maxX = Number(chartData[0].x);
+    let minY = Infinity;
+    let minX = NaN;
+
+    for (let i = 1; i < chartData.length; i++) {
+      if (chartData[i].y > maxY) {
+        maxY = chartData[i].y;
+        maxX = Number(chartData[i].x);
+      }
+
+      if (chartData[i].y < minY && chartData[i].y !== 0) {
+        minY = chartData[i].y;
+        minX = Number(chartData[i].x);
+      }
+    }
+
+    if (isNaN(minX)) {
+      minX = 0;
+    }
+
+    setMin(minX);
+    setMax(maxX);
+  };
+
+  const generateChartData = (
+    numeros: number,
+    dezenas: TDezenas
+  ): TChartData[] => {
+    const chartData = Array.from({ length: numeros }, (_, i) => ({
+      x: i.toString(),
+      y: 0,
+    }));
+
+    if (chartData.length >= numeros) {
+      dezenas.forEach((d) => {
+        d.forEach((n) => {
+          chartData[+n].y += 1;
+        });
+      });
+    }
+    return chartData;
+  };
+
+  useEffect(() => {
+    if (data && modalidade) {
       const dezenas = data;
       const concursos = dezenas?.length;
       let numeros = modalidade?.numeros ?? 0;
+
       numeros++;
 
-      const charData = Array.from({ length: numeros }, (_, i) => ({
-        x: i.toString(),
-        y: 0,
-      }));
-
-      if (charData.length >= numeros) {
-        dezenas.forEach((d) => {
-          d.forEach((n) => {
-            charData[+n].y += 1;
-          });
-        });
-      }
-
-      //console.log(Math.max(...charData.map((e) => e.y)));
-
-      let maxY = charData[0].y;
-      let maxX = Number(charData[0].x);
-      let minY = Infinity;
-      let minX = NaN;
-
-      for (let i = 1; i < charData.length; i++) {
-        if (charData[i].y > maxY) {
-          maxY = charData[i].y;
-          maxX = Number(charData[i].x);
-        }
-
-        if (charData[i].y < minY && charData[i].y !== 0) {
-          minY = charData[i].y;
-          minX = Number(charData[i].x);
-        }
-      }
-
-      if (isNaN(minX)) {
-        minX = 0;
-      }
-
-      setMin(minX);
-      setMax(maxX);
       setTotalConcursos(concursos);
 
-      const options = {
-        colors: ["#1A56DB", "#FDBA8C"],
-        series: [
-          {
-            name: "Eventos",
-            color: "#1A56DB",
-            data: charData,
-          },
-        ],
-        chart: {
-          type: "bar",
-          width: "100%",
-          height: "320px",
-          fontFamily: "Inter, sans-serif",
-          toolbar: {
-            show: false,
-          },
-        },
-        plotOptions: {
-          bar: {
-            horizontal: false,
-            columnWidth: "70%",
-            borderRadiusApplication: "end",
-            borderRadius: 8,
-          },
-        },
-        tooltip: {
-          shared: true,
-          intersect: false,
-          style: {
-            fontFamily: "Inter, sans-serif",
-          },
-        },
-        states: {
-          hover: {
-            filter: {
-              type: "darken",
-              value: 1,
-            },
-          },
-        },
-        stroke: {
-          show: true,
-          width: 0,
-          colors: ["transparent"],
-        },
-        grid: {
-          show: false,
-          strokeDashArray: 4,
-          padding: {
-            left: 2,
-            right: 2,
-            top: -14,
-          },
-        },
-        dataLabels: {
-          enabled: false,
-        },
-        legend: {
-          show: false,
-        },
-        xaxis: {
-          floating: false,
-          labels: {
-            show: true,
-            style: {
-              fontFamily: "Inter, sans-serif",
-              cssClass: "text-xs font-normal fill-gray-500 dark:fill-gray-400",
-            },
-          },
-          axisBorder: {
-            show: false,
-          },
-          axisTicks: {
-            show: false,
-          },
-        },
-        yaxis: {
-          show: false,
-        },
-        fill: {
-          opacity: 1,
-        },
-      };
-
-      if (
-        document.getElementById("column-chart") &&
-        typeof ApexCharts !== "undefined"
-      ) {
-        const chart = new ApexCharts(
-          document.getElementById("column-chart"),
-          options
-        );
-        chart.render();
-      }
+      const chartData = generateChartData(numeros, dezenas);
+      findMaxAndMinEvents(chartData);
+      loadChart(chartData);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data]);
+  }, [data, modalidade]);
+
   return (
     <div className="w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
       <div className="flex justify-between pb-4 mb-4 border-b border-gray-200 dark:border-gray-700">

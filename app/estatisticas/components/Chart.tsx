@@ -3,17 +3,11 @@ import React, { useState } from "react";
 import { useEffect } from "react";
 import LoteriasCaixaIcon from "@/public/icons/LoteriasCaixaIcon";
 import ChartPinIcon from "@/public/icons/CharPinIcon";
+import TModalidade from "@/app/shared/types/modalidade.types";
 
-type Modalidade = {
-  title: string;
-  name: string;
-  primaryColor: string;
-  secondaryColor: string;
-  numeros: number;
-};
-type CharProps = {
+type TChartProps = {
   data?: string[][] | undefined;
-  modalidade?: Modalidade | undefined;
+  modalidade?: TModalidade | undefined;
 };
 
 type TChartData = {
@@ -21,38 +15,61 @@ type TChartData = {
   y: number;
 };
 
+enum EChartOrientation {
+  ORDER = "ORDER",
+  ASC = "ASC",
+  DES = "DES",
+  ODD = "ODD",
+  EVEN = "EVEN",
+  EVEN_ASC = "EVEN_ASC",
+  EVEN_DES = "EVEN_DES",
+  ODD_ASC = "ODD_ASC",
+  ODD_DES = "ODD_DES",
+}
+
 type TDezenas = string[][];
 
-export default function Chart({ data, modalidade }: CharProps) {
+export default function Chart({ data, modalidade }: TChartProps) {
   const [totalConcursos, setTotalConcursos] = useState(0);
   const [max, setMax] = useState<number | null>(0);
   const [min, setMin] = useState<number | null>(0);
 
+  const [chartView, setChartView] = useState<EChartOrientation>(
+    EChartOrientation.ORDER
+  );
+
   const loadChart = (chartData: TChartData[]) => {
     const options = {
-      colors: ["#1A56DB", "#FDBA8C"],
+      colors: [modalidade?.primaryColor, modalidade?.secondaryColor],
+
       series: [
         {
           name: "Eventos",
-          color: "#1A56DB",
+          color: modalidade?.primaryColor,
           data: chartData,
         },
       ],
       chart: {
         type: "bar",
         width: "100%",
-        height: "320px",
+        height: 1500,
         fontFamily: "Inter, sans-serif",
         toolbar: {
-          show: false,
+          show: true,
         },
+        redrawOnParentResize: true,
       },
       plotOptions: {
         bar: {
-          horizontal: false,
-          columnWidth: "70%",
+          horizontal: true,
+          columnWidth: "100%",
           borderRadiusApplication: "end",
-          borderRadius: 8,
+          borderRadius: 4,
+          barHeight: "90%",
+
+          distributed: true,
+          isDumbbell: true,
+          dumbbellColors: modalidade?.primaryColor,
         },
       },
       tooltip: {
@@ -81,7 +98,8 @@ export default function Chart({ data, modalidade }: CharProps) {
         padding: {
           left: 2,
           right: 2,
-          top: -14,
+          top: 2,
+          bottom: 2,
         },
       },
       dataLabels: {
@@ -107,10 +125,10 @@ export default function Chart({ data, modalidade }: CharProps) {
         },
       },
       yaxis: {
-        show: false,
+        show: true,
       },
       fill: {
-        opacity: 1,
+        opacity: 0.8,
       },
     };
 
@@ -126,7 +144,7 @@ export default function Chart({ data, modalidade }: CharProps) {
     }
   };
 
-  const findMaxAndMinEvents = (chartData: TChartData[]) => {
+  const setMaxAndMinEvents = (chartData: TChartData[]) => {
     let maxY = chartData[0].y;
     let maxX = Number(chartData[0].x);
     let minY = Infinity;
@@ -152,9 +170,34 @@ export default function Chart({ data, modalidade }: CharProps) {
     setMax(maxX);
   };
 
-  const generateChartData = (
+  const quickSort = (arr: TChartData[], ascending: boolean): TChartData[] => {
+    if (arr.length < 2) return arr;
+
+    const pivot = arr[0].y;
+    const left = [];
+    const right = [];
+
+    for (let i = 1; i < arr.length; i++) {
+      if (ascending) {
+        if (arr[i].y < pivot) left.push(arr[i]);
+        else right.push(arr[i]);
+      } else {
+        if (arr[i].y > pivot) left.push(arr[i]);
+        else right.push(arr[i]);
+      }
+    }
+
+    return [
+      ...quickSort(left, ascending),
+      arr[0],
+      ...quickSort(right, ascending),
+    ];
+  };
+
+  const getChartData = (
     numeros: number,
-    dezenas: TDezenas
+    dezenas: TDezenas,
+    orientation: EChartOrientation
   ): TChartData[] => {
     const chartData = Array.from({ length: numeros }, (_, i) => ({
       x: i.toString(),
@@ -168,27 +211,84 @@ export default function Chart({ data, modalidade }: CharProps) {
         });
       });
     }
+
+    if (orientation == EChartOrientation.ORDER) {
+      return chartData;
+    }
+
+    if (orientation == EChartOrientation.ASC) {
+      return quickSort(chartData, true);
+    }
+
+    if (orientation == EChartOrientation.DES) {
+      return quickSort(chartData, false);
+    }
+
+    if (orientation == EChartOrientation.EVEN) {
+      return chartData.filter((e) => +e.x % 2 == 0);
+    }
+
+    if (orientation == EChartOrientation.ODD) {
+      return chartData.filter((e) => +e.x % 2 !== 0);
+    }
+
+    if (orientation == EChartOrientation.EVEN_ASC) {
+      return quickSort(
+        chartData.filter((e) => +e.x % 2 == 0),
+        true
+      );
+    }
+
+    if (orientation == EChartOrientation.EVEN_DES) {
+      return quickSort(
+        chartData.filter((e) => +e.x % 2 == 0),
+        false
+      );
+    }
+
+    if (orientation == EChartOrientation.ODD_ASC) {
+      return quickSort(
+        chartData.filter((e) => +e.x % 2 !== 0),
+        true
+      );
+    }
+
+    if (orientation == EChartOrientation.ODD_DES) {
+      return quickSort(
+        chartData.filter((e) => +e.x % 2 !== 0),
+        false
+      );
+    }
+
     return chartData;
+  };
+
+  const updateChartData = (chartViewOrder: EChartOrientation) => {
+    if (!data || !modalidade) return;
+
+    let NUMEROS = modalidade?.numeros ?? 0;
+    const chartData = getChartData(NUMEROS, data, chartViewOrder);
+    setMaxAndMinEvents(chartData);
+    setTotalConcursos(data?.length);
+    loadChart(chartData);
+  };
+
+  const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const chartViewOrder = e.target.value as EChartOrientation;
+    setChartView(chartViewOrder);
+    updateChartData(chartViewOrder);
   };
 
   useEffect(() => {
     if (data && modalidade) {
-      const dezenas = data;
-      const concursos = dezenas?.length;
-      let numeros = modalidade?.numeros ?? 0;
-
-      numeros++;
-
-      setTotalConcursos(concursos);
-
-      const chartData = generateChartData(numeros, dezenas);
-      findMaxAndMinEvents(chartData);
-      loadChart(chartData);
+      updateChartData(chartView);
     }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, modalidade]);
 
   return (
-    <div className="w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
+    <div className="w-full h-max bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
       <div className="flex justify-between pb-4 mb-4 border-b border-gray-200 dark:border-gray-700">
         <div className="flex items-center">
           <div className="w-12 h-12 rounded-lg bg-gray-100 dark:bg-gray-700 flex items-center justify-center mr-3">
@@ -228,85 +328,35 @@ export default function Chart({ data, modalidade }: CharProps) {
           </dd>
         </dl>
       </div>
-      <div id="column-chart" />
+      <div id="column-chart" className="flex flex-col m-auto min-h-screen" />
+
       <div className="grid grid-cols-1 items-center border-gray-200 border-t dark:border-gray-700 justify-between">
         <div className="flex justify-between items-center pt-5">
-          {/* Button */}
-          <button
-            id="dropdownDefaultButton"
-            data-dropdown-toggle="lastDaysdropdown"
-            data-dropdown-placement="bottom"
-            className="text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 text-center inline-flex items-center dark:hover:text-white"
-            type="button"
+          <select
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            onChange={handleSelect}
+            //value={chartView}
+            //defaultChecked={true}
           >
-            Ordem
-            <svg
-              className="w-2.5 m-2.5 ml-1.5"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 10 6"
-            >
-              <path
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="m1 1 4 4 4-4"
-              />
-            </svg>
-          </button>
-          {/* Dropdown menu */}
-          <div
-            id="lastDaysdropdown"
-            className="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700"
-          >
-            <ul
-              className="py-2 text-sm text-gray-700 dark:text-gray-200"
-              aria-labelledby="dropdownDefaultButton"
-            >
-              <li>
-                <a
-                  href="#"
-                  className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                >
-                  Yesterday
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                >
-                  Today
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                >
-                  Last 7 days
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                >
-                  Last 30 days
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                >
-                  Last 90 days
-                </a>
-              </li>
-            </ul>
-          </div>
+            <option value={EChartOrientation.ORDER}>Ordem</option>
+            <option value={EChartOrientation.ASC}>Ascendente</option>
+            <option value={EChartOrientation.DES}>Descendente</option>
+            <option value={EChartOrientation.ODD}>Números Impares</option>
+            <option value={EChartOrientation.ODD_ASC}>
+              Números Impares Ascendente
+            </option>
+            <option value={EChartOrientation.ODD_DES}>
+              Números Impares Descendente
+            </option>
+            <option value={EChartOrientation.EVEN}>Números Pares</option>
+            <option value={EChartOrientation.EVEN_ASC}>
+              Números Pares Ascendente
+            </option>
+            <option value={EChartOrientation.EVEN_DES}>
+              Números Pares Descendente
+            </option>
+          </select>
+
           <a
             href="#"
             className="uppercase text-sm font-semibold inline-flex items-center rounded-lg text-blue-600 hover:text-blue-700 dark:hover:text-blue-500  hover:bg-gray-100 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 px-3 py-2"

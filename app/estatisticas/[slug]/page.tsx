@@ -5,51 +5,13 @@ import { useEffect, useState } from "react";
 import { MODALIDADES_LOTERIA } from "@/app/config";
 import Hero from "../components/Hero";
 import Header from "../components/Header";
-import Chart from "@/app/components/Chart";
+import Chart from "@/app/estatisticas/components/Chart";
 import EstatisticasCard from "@/app/components/EstatisticasCard";
 import Loading from "@/app/components/Loading";
+import TModalidade from "@/app/shared/types/modalidade.types";
+import TLoteria from "@/app/shared/types/loteria.types";
 
-type Premio = {
-  descricao: string;
-  faixa: number;
-  ganhadores: number;
-  valorPremio: number;
-};
-
-type LocalGanhador = {
-  ganhadores: number;
-  municipio: string;
-  nomeFatansiaUL: string;
-  serie: string;
-  posicao: number;
-  uf: string;
-};
-
-type Loteria = {
-  loteria: string;
-  concurso: number;
-  data: string;
-  local: string;
-  dezenasOrdemSorteio: string[];
-  dezenas: string[];
-  trevos: string[];
-  timeCoracao: string;
-  mesSorte: string;
-  premiacoes: Premio[];
-  estadosPremiados: string[];
-  observacao: string;
-  acumulou: boolean;
-  proximoConcurso: number;
-  dataProximoConcurso: string;
-  localGanhadores: LocalGanhador[];
-  valorArrecadado: number;
-  valorAcumuladoConcurso_0_5: number;
-  valorAcumuladoConcursoEspecial: number;
-  valorAcumuladoProximoConcurso: number;
-  valorEstimadoProximoConcurso: number;
-}[];
-
-enum LoteriaModalidade {
+enum ELoteriaModalidade {
   maismilionaria,
   megasena,
   lotofacil,
@@ -62,25 +24,17 @@ enum LoteriaModalidade {
   supersete,
 }
 
-type Modalidade = {
-  title: string;
-  name: string;
-  primaryColor: string;
-  secondaryColor: string;
-  numeros: number;
-};
-
 export default function Estatisticas({ params }: { params: { slug: string } }) {
-  const [modalidade, setModalidade] = useState<Modalidade>();
+  const [modalidade, setModalidade] = useState<TModalidade>();
 
   const isValidUrl = (() => {
-    if (!(params.slug in LoteriaModalidade)) {
+    if (!(params.slug in ELoteriaModalidade)) {
       window.location.href = "/404";
       return false;
     }
   })();
 
-  const { data, isFetching } = useQuery<Loteria>(
+  const { data, isFetching } = useQuery<TLoteria[]>(
     params.slug,
     async () => {
       const response = await axios.get(
@@ -94,9 +48,9 @@ export default function Estatisticas({ params }: { params: { slug: string } }) {
       cacheTime: 24 * (65 * 60 * 1000), // 24horas
     }
   );
-  const dezenas = data?.map((value) => value.dezenas);
 
-  useEffect(() => {
+  const dezenas = data?.map((value) => value.dezenas);
+  const setCurrentCategory = () => {
     const [prevModalidade] = MODALIDADES_LOTERIA.filter(
       (m) => m.name == params.slug
     );
@@ -104,6 +58,10 @@ export default function Estatisticas({ params }: { params: { slug: string } }) {
     if (prevModalidade) {
       setModalidade(prevModalidade);
     }
+  };
+
+  useEffect(() => {
+    setCurrentCategory();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 

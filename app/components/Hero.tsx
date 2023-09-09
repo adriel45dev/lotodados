@@ -8,16 +8,33 @@ export default function Hero() {
   return (
     <section>
       <div className="bg-gray-100 sm:grid grid-cols-5 px-0 py-0 md:py-6 md:px-4 min-h-full lg:min-h-screen space-y-6 sm:space-y-0 sm:gap-4">
-        <div className="h-screen col-span-4 bg-gradient-to-tr from-indigo-800 to-indigo-500 rounded-md flex items-center">
-          <div className="ml-20 w-80">
-            <h2 className="text-white text-6xl">
-              <LoteriasCaixaIcon className="w-8 h-8 text-green-400" />
-              Loterias
-            </h2>
+        <div className="h-screen col-span-4 bg-gradient-to-tr from-endeavour-800 to-endeavour-500 rounded-md flex flex-col justify-center items-center">
+          <div className=" w-80 flex flex-col justify-center items-center">
+            <LoteriasCaixaIcon className="w-16 h-16 animate-pulse animation-duration-5000 text-white" />
+
+            <h2 className="text-white text-6xl">Loterias</h2>
             <p className="text-indigo-100 mt-4 capitalize font-thin tracking-wider leading-7">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed,
               dolore?
             </p>
+
+            <div className="flex flex-row gap-2 my-4 text-endeavour-600">
+              <span className="text-2xl w-12 h-12 bg-white rounded-full flex justify-center items-center">
+                0
+              </span>
+              <span className="text-2xl w-12 h-12 bg-white rounded-full flex justify-center items-center">
+                0
+              </span>
+              <span className="text-2xl w-12 h-12 bg-white rounded-full flex justify-center items-center">
+                0
+              </span>
+              <span className="text-2xl w-12 h-12 bg-white rounded-full flex justify-center items-center">
+                0
+              </span>
+              <span className="text-2xl w-12 h-12 bg-white rounded-full flex justify-center items-center">
+                0
+              </span>
+            </div>
 
             <a
               href="#"

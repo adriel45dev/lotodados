@@ -1,5 +1,6 @@
 import Link from "next/link";
 import LogoIcon from "@/public/icons/LogoIcon";
+import LoteriasCaixaIcon from "@/public/icons/LoteriasCaixaIcon";
 
 export default function Navbar() {
   return (
@@ -8,9 +9,13 @@ export default function Navbar() {
         <div className="flex justify-between items-center py-6 px-10 container mx-auto">
           <div>
             <Link href={"/"} className="flex justify-center items-center">
-              <LogoIcon className="w-12 h-12" />
-              <h1 className="text-2xl font-bold text-[#0065B7] hover:cursor-pointer">
-                LotoDados
+              <LoteriasCaixaIcon
+                className="w-8 h-8 mx-2"
+                primaryColor="#F99500"
+                secondColor="#0065B7"
+              />
+              <h1 className="text-2xl font-normal text-endeavour-600 hover:cursor-pointer hover:text-endeavour-400">
+                Lotodados
               </h1>
             </Link>
           </div>

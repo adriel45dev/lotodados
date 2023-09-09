@@ -1,32 +1,33 @@
-type Jogos = {
-  title: string;
-  name: string;
-  primaryColor: string;
-  secondaryColor: string;
-  numeros: number;
-}[];
+import TModalidade from "./shared/types/modalidade.types";
 
-const MODALIDADES_LOTERIA: Jogos = [
+const MODALIDADES_LOTERIA: TModalidade[] = [
   {
     title: "+MILIONÁRIA",
     name: "maismilionaria",
     primaryColor: "#2e317a",
     secondaryColor: "#59629f",
-    numeros: 50,
+    numeros: 51, // 0 - 50
   },
   {
     title: "MEGA-SENA",
     name: "megasena",
     primaryColor: "#209869",
     secondaryColor: "#8fcbb3",
-    numeros: 60,
+    numeros: 61, // 0 -- 60
   },
   {
     title: "LOTOFÁCIL",
     name: "lotofacil",
     primaryColor: "#930089",
     secondaryColor: "#C87fc3",
-    numeros: 25,
+    numeros: 26, // 0 - 25
+  },
+  {
+    title: "LOTOMANIA",
+    name: "lotomania",
+    primaryColor: "#F78100",
+    secondaryColor: "#FABF7F",
+    numeros: 100, // 0 - 99
   },
 ];
 

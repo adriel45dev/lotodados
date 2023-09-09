@@ -9,7 +9,7 @@ import Script from "next/script";
 // import { queryClient } from "./services/queryClient";
 
 export const metadata: Metadata = {
-  title: "Loto Dados",
+  title: "Lotodados | Análise",
   description: "A estátisticas estão no lado da sorte.",
 };
 

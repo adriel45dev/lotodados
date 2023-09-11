@@ -30,119 +30,13 @@ enum EChartOrientation {
 type TDezenas = string[][];
 
 export default function Chart({ data, modalidade }: TChartProps) {
-  const [totalConcursos, setTotalConcursos] = useState(0);
+  const [totalEvents, setTotalEvents] = useState(0);
   const [max, setMax] = useState<number | null>(0);
   const [min, setMin] = useState<number | null>(0);
-
   const [chartView, setChartView] = useState<EChartOrientation>(
     EChartOrientation.ORDER
   );
-
-  const loadChart = (chartData: TChartData[]) => {
-    const options = {
-      colors: [modalidade?.primaryColor, modalidade?.secondaryColor],
-
-      series: [
-        {
-          name: "Eventos",
-          color: modalidade?.primaryColor,
-          data: chartData,
-        },
-      ],
-      chart: {
-        type: "bar",
-        width: "100%",
-        height: 1500,
-        fontFamily: "Inter, sans-serif",
-        toolbar: {
-          show: true,
-        },
-        redrawOnParentResize: true,
-      },
-      plotOptions: {
-        bar: {
-          horizontal: true,
-          columnWidth: "100%",
-          borderRadiusApplication: "end",
-          borderRadius: 4,
-          barHeight: "90%",
-
-          distributed: true,
-          isDumbbell: true,
-          dumbbellColors: modalidade?.primaryColor,
-        },
-      },
-      tooltip: {
-        shared: true,
-        intersect: false,
-        style: {
-          fontFamily: "Inter, sans-serif",
-        },
-      },
-      states: {
-        hover: {
-          filter: {
-            type: "darken",
-            value: 1,
-          },
-        },
-      },
-      stroke: {
-        show: true,
-        width: 0,
-        colors: ["transparent"],
-      },
-      grid: {
-        show: false,
-        strokeDashArray: 4,
-        padding: {
-          left: 2,
-          right: 2,
-          top: 2,
-          bottom: 2,
-        },
-      },
-      dataLabels: {
-        enabled: false,
-      },
-      legend: {
-        show: false,
-      },
-      xaxis: {
-        floating: false,
-        labels: {
-          show: true,
-          style: {
-            fontFamily: "Inter, sans-serif",
-            cssClass: "text-xs font-normal fill-gray-500 dark:fill-gray-400",
-          },
-        },
-        axisBorder: {
-          show: false,
-        },
-        axisTicks: {
-          show: false,
-        },
-      },
-      yaxis: {
-        show: true,
-      },
-      fill: {
-        opacity: 0.8,
-      },
-    };
-
-    if (
-      document.getElementById("column-chart") &&
-      typeof ApexCharts !== "undefined"
-    ) {
-      const chart = new ApexCharts(
-        document.getElementById("column-chart"),
-        options
-      );
-      chart.render();
-    }
-  };
+  const [seriesData, setSeriesData] = useState<TChartData[]>();
 
   const setMaxAndMinEvents = (chartData: TChartData[]) => {
     let maxY = chartData[0].y;
@@ -263,29 +157,144 @@ export default function Chart({ data, modalidade }: TChartProps) {
     return chartData;
   };
 
-  const updateChartData = (chartViewOrder: EChartOrientation) => {
-    if (!data || !modalidade) return;
+  const loadChart = () => {
+    document.getElementById("column-chart")!.innerHTML = "";
 
-    let NUMEROS = modalidade?.numeros ?? 0;
-    const chartData = getChartData(NUMEROS, data, chartViewOrder);
+    const options = {
+      colors: [modalidade?.primaryColor, modalidade?.secondaryColor],
+
+      responsive: [
+        {
+          breakpoint: undefined,
+          options: {},
+        },
+      ],
+
+      series: [
+        {
+          name: "Eventos",
+          color: modalidade?.primaryColor,
+          data: seriesData,
+        },
+      ],
+      chart: {
+        type: "bar",
+        width: "100%",
+        height: 1500,
+        fontFamily: "Inter, sans-serif",
+        toolbar: {
+          show: true,
+        },
+        redrawOnWindowResize: false,
+      },
+      plotOptions: {
+        bar: {
+          horizontal: true,
+          columnWidth: "100%",
+          borderRadiusApplication: "end",
+          borderRadius: 4,
+          barHeight: "90%",
+          distributed: true,
+        },
+      },
+      tooltip: {
+        shared: true,
+        intersect: false,
+        style: {
+          fontFamily: "Inter, sans-serif",
+        },
+      },
+      states: {
+        hover: {
+          filter: {
+            type: "darken",
+            value: 1,
+          },
+        },
+      },
+      stroke: {
+        show: true,
+        width: 0,
+        colors: ["transparent"],
+      },
+      grid: {
+        show: false,
+        strokeDashArray: 4,
+        padding: {
+          left: 2,
+          right: 2,
+          top: 2,
+          bottom: 2,
+        },
+      },
+      dataLabels: {
+        enabled: false,
+      },
+      legend: {
+        show: false,
+      },
+      xaxis: {
+        floating: false,
+        labels: {
+          show: true,
+          style: {
+            fontFamily: "Inter, sans-serif",
+            cssClass: "text-xs font-normal fill-gray-500 dark:fill-gray-400",
+          },
+        },
+        axisBorder: {
+          show: false,
+        },
+        axisTicks: {
+          show: false,
+        },
+      },
+      yaxis: {
+        show: true,
+      },
+      fill: {
+        opacity: 0.8,
+      },
+    };
+
+    if (
+      document.getElementById("column-chart") &&
+      typeof ApexCharts !== "undefined"
+    ) {
+      const chart = new ApexCharts(
+        document.getElementById("column-chart"),
+        options
+      );
+      chart.render();
+    }
+  };
+
+  const loadData = () => {
+    if (!data || !modalidade) return;
+    setTotalEvents(data?.length);
+    const chartData = getChartData(modalidade.totalNumbers, data, chartView);
     setMaxAndMinEvents(chartData);
-    setTotalConcursos(data?.length);
-    loadChart(chartData);
+    setSeriesData(chartData);
   };
 
   const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const chartViewOrder = e.target.value as EChartOrientation;
-    setChartView(chartViewOrder);
-    updateChartData(chartViewOrder);
+    const newView = e.target.value as EChartOrientation;
+    console.log(newView);
+    setChartView(newView);
   };
 
   useEffect(() => {
-    if (data && modalidade) {
-      updateChartData(chartView);
+    if (seriesData) {
+      console.log("Carregar os dados no gráfico");
+      loadChart();
     }
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data, modalidade]);
+  }, [seriesData, chartView]);
+
+  useEffect(() => {
+    loadData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data, modalidade?.totalNumbers, chartView]);
 
   return (
     <div className="w-full h-max bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
@@ -296,7 +305,7 @@ export default function Chart({ data, modalidade }: TChartProps) {
           </div>
           <div>
             <h5 className="leading-none text-2xl font-bold text-gray-900 dark:text-white pb-1">
-              {totalConcursos}
+              {totalEvents}
             </h5>
             <p className="text-sm font-normal text-gray-500 dark:text-gray-400">
               Ocorrências históricas
@@ -304,9 +313,20 @@ export default function Chart({ data, modalidade }: TChartProps) {
           </div>
         </div>
         <div>
-          <span className="bg-blue-100 text-blue-800 text-xs font-medium inline-flex items-center px-2.5 py-1 rounded-md ">
+          <span
+            className={`  text-xs font-medium inline-flex items-center px-2.5 py-1 rounded-md ${
+              ["ORDER", "ODD", "EVEN"].includes(chartView) &&
+              "bg-blue-100 text-blue-800"
+            } ${
+              ["ASC", "ODD_ASC", "EVEN_ASC"].includes(chartView) &&
+              "bg-red-100 text-red-800"
+            } ${
+              ["DES", "ODD_DES", "EVEN_DES"].includes(chartView) &&
+              "bg-green-100 text-green-800"
+            }`}
+          >
             <ChartPinIcon className="w-6 h-6" />
-            ORDEM
+            <span>{chartView}</span>
           </span>
         </div>
       </div>
@@ -328,6 +348,7 @@ export default function Chart({ data, modalidade }: TChartProps) {
           </dd>
         </dl>
       </div>
+
       <div id="column-chart" className="flex flex-col m-auto min-h-screen" />
 
       <div className="grid grid-cols-1 items-center border-gray-200 border-t dark:border-gray-700 justify-between">
@@ -335,8 +356,7 @@ export default function Chart({ data, modalidade }: TChartProps) {
           <select
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             onChange={handleSelect}
-            //value={chartView}
-            //defaultChecked={true}
+            value={chartView}
           >
             <option value={EChartOrientation.ORDER}>Ordem</option>
             <option value={EChartOrientation.ASC}>Ascendente</option>

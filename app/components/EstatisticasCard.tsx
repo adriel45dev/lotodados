@@ -8,7 +8,7 @@ export default function EstatisticasCard({
   title,
 }: EstatisticasProps) {
   return (
-    <div className="w-full flex flex-col justify-center items-center px-6">
+    <div className="w-full flex flex-col justify-center items-center pb-16">
       <h1 className="text-4xl font-extrabold">{title}</h1>
       {children}
     </div>

@@ -10,6 +10,8 @@ import EstatisticasCard from "@/app/components/EstatisticasCard";
 import Loading from "@/app/components/Loading";
 import TModalidade from "@/app/shared/types/modalidade.types";
 import TLoteria from "@/app/shared/types/loteria.types";
+import Numbers from "../components/Numbers";
+import History from "../components/History";
 
 enum ELoteriaModalidade {
   maismilionaria,
@@ -26,6 +28,11 @@ enum ELoteriaModalidade {
 
 export default function Estatisticas({ params }: { params: { slug: string } }) {
   const [modalidade, setModalidade] = useState<TModalidade>();
+  const [activeTab, setActiveTab] = useState("Ocorrências");
+
+  const handleActiveTab = (tab: string) => {
+    setActiveTab(tab);
+  };
 
   const isValidUrl = (() => {
     if (!(params.slug in ELoteriaModalidade)) {
@@ -73,9 +80,18 @@ export default function Estatisticas({ params }: { params: { slug: string } }) {
         <Loading />
       ) : (
         <>
-          <Header />
-          <EstatisticasCard title="Ocorrências Históricas">
-            <Chart data={dezenas} modalidade={modalidade} />
+          <Header onActiveTab={handleActiveTab} activeTab={activeTab} />
+
+          <EstatisticasCard title={activeTab}>
+            {activeTab == "Ocorrências" && (
+              <Chart data={dezenas} modalidade={modalidade} />
+            )}
+            {activeTab == "Números" && (
+              <Numbers data={dezenas} modalidade={modalidade} />
+            )}
+            {activeTab == "Concursos" && (
+              <History data={data} modalidade={modalidade} />
+            )}
           </EstatisticasCard>
         </>
       )}

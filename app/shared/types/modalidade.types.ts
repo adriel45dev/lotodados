@@ -3,7 +3,9 @@ type TModalidade = {
   name: string;
   primaryColor: string;
   secondaryColor: string;
-  numeros: number;
+  totalNumbers: number;
+  startPoin: number;
+  endPoint: number;
 };
 
 export default TModalidade;

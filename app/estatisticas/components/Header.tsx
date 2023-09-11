@@ -1,32 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
 
-export default function Header() {
+type HeaderProps = {
+  onActiveTab: (tab: string) => void;
+  activeTab: string;
+};
+
+export default function Header({ onActiveTab, activeTab }: HeaderProps) {
+  //const [activeTab, setActiveTab] = useState("Ocorrências");
   return (
-    <div className="my-4">
-      <ul className="flex">
-        <li className="flex-1 mr-2">
-          <a
-            className="text-center block border border-pizazz-400 rounded py-2 px-4 bg-pizazz-500 hover:bg-pizazz-600 text-white"
-            href="#"
-          >
+    <div className="my-4 p-4">
+      <ul className="flex felx-row justify-center items-center flex-wrap">
+        <li className="flex-1 mr-2" onClick={() => onActiveTab("Ocorrências")}>
+          <button className={activeTab == "Ocorrências" ? "btn-active" : "btn"}>
             Ocorrências
-          </a>
+          </button>
         </li>
-        <li className="flex-1 mr-2">
-          <a
-            className="text-center block border border-white rounded hover:border-gray-200 text-blue-500 hover:bg-gray-200 py-2 px-4"
-            href="#"
-          >
-            Histórico
-          </a>
+        <li className="flex-1 mr-2" onClick={() => onActiveTab("Números")}>
+          <button className={activeTab == "Números" ? "btn-active" : "btn"}>
+            Números
+          </button>
         </li>
-        <li className="text-center flex-1">
-          <a
-            className="block py-2 px-4 text-gray-400 cursor-not-allowed"
-            href="#"
-          >
-            Pesquisa
-          </a>
+        <li className="flex-1 mr-2" onClick={() => onActiveTab("Concursos")}>
+          <button className={activeTab == "Concursos" ? "btn-active" : "btn"}>
+            Concursos
+          </button>
+        </li>
+        <li className="flex-1 mr-2" onClick={() => onActiveTab("Analisar")}>
+          <button className={activeTab == "Analisar" ? "btn-active" : "btn"}>
+            Analisar
+          </button>
         </li>
       </ul>
     </div>

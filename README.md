@@ -1,6 +1,8 @@
 # Lotodados
 
-![Lotodados](./public/caixa.png)
+<p align="center">
+  <img alt="Lotodados" src="./public/caixa.png" width="48">
+</p>
 
 Lotodados é um site para análise estatística dos jogos da loteria caixa, desenvolvido com React, Next.js, TypeScript e TailwindCSS.
 

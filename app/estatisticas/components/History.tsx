@@ -28,7 +28,13 @@ export default function History({ data, modalidade }: HistoryProps) {
   };
 
   const handleConcursoInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (+e.target.value > data!.length || +e.target.value < 0) return;
+    if (+e.target.value > data!.length) return;
+
+    if (+e.target.value < 1) {
+      setInputConcurso("");
+      setIndexConcurso(1);
+      return;
+    }
     setInputConcurso(e.target.value);
     setIndexConcurso(Math.abs(+e.target.value - data!.length));
   };

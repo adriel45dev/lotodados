@@ -175,11 +175,13 @@ export default function Numbers({ data, modalidade }: NumbersProps) {
   };
 
   const handleNumberInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (
-      +e.target.value > modalidade!.endPoint ||
-      +e.target.value < modalidade!.startPoin
-    )
+    if (+e.target.value > modalidade!.endPoint) return;
+
+    if (+e.target.value < modalidade!.startPoin) {
+      setInputNumber("");
+      setNumberReference(modalidade!.startPoin);
       return;
+    }
     setInputNumber(e.target.value);
     setNumberReference(+e.target.value);
   };

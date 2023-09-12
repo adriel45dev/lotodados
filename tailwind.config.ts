@@ -7,6 +7,7 @@ const config: Config = {
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
     "./node_modules/flowbite/**/*.js",
   ],
+
   theme: {
     extend: {
       backgroundImage: {
@@ -41,6 +42,19 @@ const config: Config = {
           "800": "#064b86",
           "900": "#0b3f6f",
           "950": "#07284a",
+        },
+        riptide: {
+          "50": "#f2fbf9",
+          "100": "#d2f5ef",
+          "200": "#88e5d6",
+          "300": "#6edacc",
+          "400": "#41c0b4",
+          "500": "#27a59b",
+          "600": "#1d847e",
+          "700": "#1b6a67",
+          "800": "#1a5553",
+          "900": "#1a4745",
+          "950": "#092a2a",
         },
       },
     },

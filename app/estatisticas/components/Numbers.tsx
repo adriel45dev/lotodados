@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import TModalidade from "@/app/shared/types/modalidade.types";
 import NextIcon from "@/public/icons/nextIcon";
-import BackIcon from "@/public/icons/backIcon";
+import BackIcon from "@/public/icons/BackIcon";
 import ApexCharts from "apexcharts";
 
 type NumbersProps = {
@@ -185,7 +185,7 @@ export default function Numbers({ data, modalidade }: NumbersProps) {
   };
 
   return (
-    <div className="flex flex-col my-8 select-non w-full">
+    <div className="flex flex-col my-8 select-non w-full px-4 md:px-32">
       <div className="flex flex-row justify-center items-center gap-4">
         <button
           className=" text-2xl font-normal rounded-full text-white flex justify-center items-center hover:opacity-50 mb-8 focus:ring-4 focus:outline-none focus:ring-slate-300 "
@@ -256,6 +256,26 @@ export default function Numbers({ data, modalidade }: NumbersProps) {
 
       <div className="flex flex-col justify-center items-center w-full h-full p-8">
         <div id="column-chart" className="min-w-full md:min-w-[600px] "></div>
+      </div>
+
+      <div className="flex flex-col ">
+        <h2 className="text-2xl font-bold text-endeavour-600 py-4">
+          Sobre a análise dos números
+        </h2>
+        <p className=" text-gray-600">
+          Nesta seção você pode analisar a <strong>frequência</strong> com que
+          certos números são sorteados na loteria. Isso permite identificar
+          quais são os números {`"quentes"`} e {`"frios"`}, ou seja, aqueles que
+          são sorteados com mais ou menos frequência. Por exemplo, você pode
+          verificar quais são os números que mais saem junto com o número 2 nas
+          extrações. Nossa análise mostra os números que mais aparecem em
+          conjunto com outro nos últimos sorteios. Isso pode ajudá-lo a montar
+          sua aposta de maneira mais estratégica, combinando tanto números
+          frequentemente sorteados quanto aqueles raramente escolhidos, a fim de
+          aumentar suas chances de acerto. Explore os dados dos últimos sorteios
+          e descubra combinações de números com maior probabilidade estatística
+          de serem premiados. Boa sorte!
+        </p>
       </div>
     </div>
   );

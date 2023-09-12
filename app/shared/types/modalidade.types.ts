@@ -6,6 +6,7 @@ type TModalidade = {
   totalNumbers: number;
   startPoin: number;
   endPoint: number;
+  channel: string;
 };
 
 export default TModalidade;

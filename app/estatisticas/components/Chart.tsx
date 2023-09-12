@@ -1,3 +1,4 @@
+"use client";
 import ApexCharts from "apexcharts";
 import React, { useState } from "react";
 import { useEffect } from "react";
@@ -34,7 +35,7 @@ export default function Chart({ data, modalidade }: TChartProps) {
   const [max, setMax] = useState<number | null>(0);
   const [min, setMin] = useState<number | null>(0);
   const [chartView, setChartView] = useState<EChartOrientation>(
-    EChartOrientation.ORDER
+    EChartOrientation.DES
   );
   const [seriesData, setSeriesData] = useState<TChartData[]>();
 
@@ -158,6 +159,7 @@ export default function Chart({ data, modalidade }: TChartProps) {
   };
 
   const loadChart = () => {
+    if (typeof window == "undefined") return;
     document.getElementById("column-chart")!.innerHTML = "";
 
     const options = {
@@ -297,11 +299,15 @@ export default function Chart({ data, modalidade }: TChartProps) {
   }, [data, modalidade?.totalNumbers, chartView]);
 
   return (
-    <div className="w-full h-max bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
+    <div className="w-full h-max bg-white rounded-lg dark:bg-gray-800 px-4 md:px-32">
       <div className="flex justify-between pb-4 mb-4 border-b border-gray-200 dark:border-gray-700">
         <div className="flex items-center">
           <div className="w-12 h-12 rounded-lg bg-gray-100 dark:bg-gray-700 flex items-center justify-center mr-3">
-            <LoteriasCaixaIcon className="w-8 h-8 text-endeavour-600" />
+            <LoteriasCaixaIcon
+              className="w-8 h-8 text-endeavour-600"
+              primaryColor={modalidade?.primaryColor}
+              secondColor={modalidade?.secondaryColor}
+            />
           </div>
           <div>
             <h5 className="leading-none text-2xl font-bold text-gray-900 dark:text-white pb-1">
@@ -349,7 +355,9 @@ export default function Chart({ data, modalidade }: TChartProps) {
         </dl>
       </div>
 
-      <div id="column-chart" className="flex flex-col m-auto min-h-screen" />
+      <div className="flex flex-col justify-center items-center min-h-screen w-full ">
+        <div id="column-chart" className="flex flex-col w-full mx-8" />
+      </div>
 
       <div className="grid grid-cols-1 items-center border-gray-200 border-t dark:border-gray-700 justify-between">
         <div className="flex justify-between items-center pt-5">
@@ -378,7 +386,7 @@ export default function Chart({ data, modalidade }: TChartProps) {
           </select>
 
           <a
-            href="#"
+            href={modalidade?.channel}
             className="uppercase text-sm font-semibold inline-flex items-center rounded-lg text-blue-600 hover:text-blue-700 dark:hover:text-blue-500  hover:bg-gray-100 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 px-3 py-2"
           >
             REGRAS DO CONCURSO
@@ -399,6 +407,27 @@ export default function Chart({ data, modalidade }: TChartProps) {
             </svg>
           </a>
         </div>
+      </div>
+
+      <div className="flex flex-col ">
+        <h2 className="text-2xl font-bold text-endeavour-600 py-4">
+          Sobre a análise das ocorrências
+        </h2>
+        <p className=" text-gray-600">
+          Nesta seção você encontra uma análise completa sobre quais números são
+          sorteados com mais frequência na loteria. Os números são exibidos em
+          ordem decrescente, desde o mais sorteado até o menos sorteado, para
+          que você identifique rapidamente quais são os {`"números quentes"`}{" "}
+          atualmente. Além disso, é possível ordenar os dados de diversas
+          maneiras, para analisar os números sob diferentes perspectivas: Ordem
+          crescente Ordem decrescente Números ímpares Números ímpares crescente
+          Números ímpares decrescente Números pares Números pares crescente
+          Números pares decrescente Ordem aleatória Com essas opções, você
+          consegue obter insights valiosos sobre os padrões nos sorteios,
+          ajudando a montar sua aposta de maneira estratégica e aumentar suas
+          chances de ganhar. Não perca tempo e comece já a analisar os números
+          mais quentes!
+        </p>
       </div>
     </div>
   );

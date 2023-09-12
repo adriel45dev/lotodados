@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Tilt+Warp&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -12,14 +13,18 @@
   .animation-duration-5000 {
     animation-duration: 5000ms;
   }
+
+  .font {
+    font-family: "Tilt Warp", cursive;
+  }
 }
 
 @layer components {
   .btn-disabled {
-    @apply block py-2 px-4 text-gray-400 cursor-not-allowed;
+    @apply block  text-gray-400 cursor-not-allowed py-2 px-4;
   }
   .btn-active {
-    @apply text-center block border border-pizazz-400 rounded py-2 px-4 bg-pizazz-500 hover:bg-pizazz-600 text-white;
+    @apply text-center block border border-pizazz-400 rounded bg-pizazz-500 hover:bg-pizazz-600 text-white py-2 px-4;
   }
   .btn {
     @apply text-center block border border-white rounded hover:border-gray-200 text-blue-500 hover:bg-gray-200 py-2 px-4;

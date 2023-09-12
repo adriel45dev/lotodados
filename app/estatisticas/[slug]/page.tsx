@@ -5,13 +5,18 @@ import { useEffect, useState } from "react";
 import { MODALIDADES_LOTERIA } from "@/app/config";
 import Hero from "../components/Hero";
 import Header from "../components/Header";
-import Chart from "@/app/estatisticas/components/Chart";
+// import Chart from "@/app/estatisticas/components/Chart";
 import EstatisticasCard from "@/app/components/EstatisticasCard";
 import Loading from "@/app/components/Loading";
 import TModalidade from "@/app/shared/types/modalidade.types";
 import TLoteria from "@/app/shared/types/loteria.types";
 import Numbers from "../components/Numbers";
 import History from "../components/History";
+import dynamic from "next/dynamic";
+
+const Chart = dynamic(() => import("@/app/estatisticas/components/Chart"), {
+  ssr: false,
+});
 
 enum ELoteriaModalidade {
   maismilionaria,
@@ -34,15 +39,9 @@ export default function Estatisticas({ params }: { params: { slug: string } }) {
     setActiveTab(tab);
   };
 
-  const isValidUrl = (() => {
-    if (!(params.slug in ELoteriaModalidade)) {
-      window.location.href = "/404";
-      return false;
-    }
-  })();
-
   const { data, isFetching } = useQuery<TLoteria[]>(
     params.slug,
+
     async () => {
       const response = await axios.get(
         `https://loteriascaixa-api.herokuapp.com/api/${params.slug}`

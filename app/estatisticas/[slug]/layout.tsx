@@ -1,9 +1,25 @@
 import { Metadata, Route } from "next";
+import LoteriasCaixaIcon from "@/public/icons/LoteriasCaixaIcon";
 
-export const metadata: Metadata = {
-  title: "Estátisticas",
-  description: "A estátisticas estão no lado da sorte.",
-};
+interface Params {
+  slug: string;
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Params;
+}): Promise<Metadata> {
+  const { slug } = params;
+
+  return {
+    title: `Estatística | ${slug}`,
+    description: "",
+    icons: {
+      icon: `\\${slug}.svg`,
+    },
+  };
+}
 
 type RootLayoutProps = {
   children: React.ReactNode;
@@ -16,7 +32,7 @@ export default function RootLayout({
   params: { slug },
   children,
 }: RootLayoutProps) {
-  metadata.title = slug;
+  //metadata.title = slug;
 
   return <>{children}</>;
 }

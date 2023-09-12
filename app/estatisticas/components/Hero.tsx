@@ -14,7 +14,7 @@ type HeroProps = {
 
 export default function Hero({ modalidade }: HeroProps) {
   return (
-    <div
+    <header
       className="w-full h-96 flex flex-col justify-center items-center text-white p-16"
       style={{ backgroundColor: modalidade?.primaryColor }}
     >
@@ -22,9 +22,9 @@ export default function Hero({ modalidade }: HeroProps) {
         className="w-16 h-16 animate-pulse"
         secondColor={modalidade?.secondaryColor}
       />
-      <h1 className="text-4xl md:text-6xl font-extrabold m-4">
+      <h1 className="text-4xl md:text-6xl font-extrabold m-4 text-center">
         {modalidade?.title}
       </h1>
-    </div>
+    </header>
   );
 }

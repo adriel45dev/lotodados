@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import BackIcon from "@/public/icons/backIcon";
+import BackIcon from "@/public/icons/BackIcon";
 import NextIcon from "@/public/icons/nextIcon";
 import LoteriasCaixaIcon from "@/public/icons/LoteriasCaixaIcon";
 import TrevoIcon from "@/public/icons/TrevoIcon";
@@ -14,6 +14,7 @@ type HistoryProps = {
 export default function History({ data, modalidade }: HistoryProps) {
   const [currConcurso, setCurrConcurso] = useState<number>(data![0]!.concurso);
   const [indexConcurso, setIndexConcurso] = useState(0);
+  const [inputConcurso, setInputConcurso] = useState("");
 
   const concurso = data![indexConcurso];
 
@@ -27,11 +28,17 @@ export default function History({ data, modalidade }: HistoryProps) {
     setIndexConcurso((prevIndex) => (prevIndex + 1) % data!.length);
   };
 
+  const handleConcursoInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (+e.target.value > data!.length || +e.target.value < 1) return;
+    setInputConcurso(e.target.value);
+    setIndexConcurso(Math.abs(+e.target.value - data!.length));
+  };
+
   return (
     <div className="flex flex-col select-none justify-center items-center w-full">
-      <h1 className="text-black text-2xl font-extrabold p-2 mb-4 mx-20">
+      <h2 className="text-slate-500 text-2xl font-extrabold p-2 mb-4 mx-20">
         Concurso nº {concurso.concurso}
-      </h1>
+      </h2>
       <div className="flex flex-row justify-center items-center gap-4 px-2">
         <button
           className=" text-2xl font-normal rounded-full text-white flex justify-center items-center hover:opacity-50 mb-8 focus:ring-4 focus:outline-none focus:ring-slate-300 "
@@ -83,6 +90,20 @@ export default function History({ data, modalidade }: HistoryProps) {
               </span>
             </div>
           ))}
+      </div>
+
+      <div className="flex flex-col justify-center items-center mb-4">
+        Buscar por concurso:
+        <div>
+          <input
+            type="number"
+            max={data?.length}
+            min={1}
+            value={inputConcurso}
+            onChange={handleConcursoInput}
+            className="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          />
+        </div>
       </div>
 
       <div className="overflow-hidden w-full flex flex-col justify-center items-center">

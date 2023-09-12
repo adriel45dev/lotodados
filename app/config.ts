@@ -1,5 +1,5 @@
 import TModalidade from "./shared/types/modalidade.types";
-
+const URI_CAIXA = "https://loterias.caixa.gov.br/Paginas";
 const MODALIDADES_LOTERIA: TModalidade[] = [
   {
     title: "+MILIONÁRIA",
@@ -9,6 +9,7 @@ const MODALIDADES_LOTERIA: TModalidade[] = [
     totalNumbers: 51,
     startPoin: 1,
     endPoint: 50,
+    channel: `${URI_CAIXA}/Mais-Milionaria.aspx`,
   },
   {
     title: "MEGA-SENA",
@@ -18,6 +19,7 @@ const MODALIDADES_LOTERIA: TModalidade[] = [
     totalNumbers: 61,
     startPoin: 1,
     endPoint: 60,
+    channel: `${URI_CAIXA}/Mega-Sena.aspx`,
   },
   {
     title: "LOTOFÁCIL",
@@ -27,6 +29,17 @@ const MODALIDADES_LOTERIA: TModalidade[] = [
     totalNumbers: 26,
     startPoin: 1,
     endPoint: 25,
+    channel: `${URI_CAIXA}/Lotofacil.aspx`,
+  },
+  {
+    title: "QUINA",
+    name: "quina",
+    primaryColor: "#260085",
+    secondaryColor: "#927FC1",
+    totalNumbers: 81,
+    startPoin: 1,
+    endPoint: 80,
+    channel: `${URI_CAIXA}/Quina.aspx`,
   },
   {
     title: "LOTOMANIA",
@@ -36,10 +49,52 @@ const MODALIDADES_LOTERIA: TModalidade[] = [
     totalNumbers: 100,
     startPoin: 0,
     endPoint: 99,
+    channel: `${URI_CAIXA}/Lotomania.aspx`,
+  },
+  {
+    title: "TIMEMANIA",
+    name: "timemania",
+    primaryColor: "#02FF02",
+    secondaryColor: "#99FF99",
+    totalNumbers: 81,
+    startPoin: 1,
+    endPoint: 80,
+    channel: `${URI_CAIXA}/Timemania.aspx`, // time do coração
+  },
+  {
+    title: "DUPLA SENA",
+    name: "duplasena",
+    primaryColor: "#A61324",
+    secondaryColor: "#D28891",
+    totalNumbers: 51,
+    startPoin: 1,
+    endPoint: 50,
+    channel: `${URI_CAIXA}/Dupla-Sena.aspx`, // dois sorteios
+  },
+  {
+    title: "DIA DE SORTE",
+    name: "diadesorte",
+    primaryColor: "#CB852B",
+    secondaryColor: "#EEC48B",
+    totalNumbers: 32,
+    startPoin: 1,
+    endPoint: 31,
+    channel: `${URI_CAIXA}/Super-Sete.aspx`, // mes da sorte
+  },
+
+  {
+    title: "SUPER SETE",
+    name: "supersete",
+    primaryColor: "#A8CF44",
+    secondaryColor: "#DDE89C",
+    totalNumbers: 10,
+    startPoin: 0,
+    endPoint: 9,
+    channel: `${URI_CAIXA}/Super-Sete.aspx`,
   },
 ];
 
-export { MODALIDADES_LOTERIA };
+export { MODALIDADES_LOTERIA, URI_CAIXA };
 
 // [
 //     "maismilionaria",
@@ -53,3 +108,14 @@ export { MODALIDADES_LOTERIA };
 //     "diadesorte",
 //     "supersete"
 //   ]
+
+// {
+//   title: "FEDERAL",
+//   name: "federal",
+//   primaryColor: "#103099",
+//   secondaryColor: "#8797CB",
+//   totalNumbers: 82640,
+//   startPoin: 1,
+//   endPoint: 100,
+//   channel: `${URI_CAIXA}/Federal.aspx,
+// },

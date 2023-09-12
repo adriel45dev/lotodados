@@ -1,5 +1,4 @@
 import Link from "next/link";
-import LogoIcon from "@/public/icons/LogoIcon";
 import LoteriasCaixaIcon from "@/public/icons/LoteriasCaixaIcon";
 
 export default function Navbar() {
@@ -11,10 +10,10 @@ export default function Navbar() {
             <Link href={"/"} className="flex justify-center items-center">
               <LoteriasCaixaIcon
                 className="w-8 h-8 mx-2"
-                primaryColor="#F99500"
-                secondColor="#0065B7"
+                primaryColor="#0065B7"
+                secondColor="#F99500"
               />
-              <h1 className="text-2xl font-normal text-endeavour-600 hover:cursor-pointer hover:text-endeavour-400">
+              <h1 className="font font-normal text-2xl text-endeavour-600 hover:cursor-pointer hover:text-pizazz-500">
                 Lotodados
               </h1>
             </Link>
@@ -32,31 +31,15 @@ export default function Navbar() {
                 <li>
                   <a
                     href="#"
-                    className="text-gray-700 hover:text-indigo-600 text-md "
+                    className="text-gray-700 hover:text-endeavour-600 text-md "
                   >
-                    Análise
+                    Estatísticas
                   </a>
                 </li>
                 <li>
                   <a
                     href="#"
-                    className="text-gray-700 hover:text-indigo-600 text-md "
-                  >
-                    Concursos
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="text-gray-700 hover:text-indigo-600 text-md "
-                  >
-                    Histórico
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="text-gray-700 hover:text-indigo-600 text-md "
+                    className="text-gray-700 hover:text-endeavour-600 text-md border-l-2 border-pizazz-500 pl-4"
                   >
                     Sobre
                   </a>

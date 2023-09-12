@@ -3,53 +3,43 @@ import LoteriasCaixaIcon from "@/public/icons/LoteriasCaixaIcon";
 import Link from "next/link";
 
 import { MODALIDADES_LOTERIA } from "../config";
+import Lottery from "./Lottery";
 
 export default function Hero() {
   return (
     <section>
       <div className="bg-gray-100 sm:grid grid-cols-5 px-0 py-0 md:py-6 md:px-4 min-h-full lg:min-h-screen space-y-6 sm:space-y-0 sm:gap-4">
-        <div className="h-screen col-span-4 bg-gradient-to-tr from-endeavour-800 to-endeavour-500 rounded-md flex flex-col justify-center items-center">
-          <div className=" w-80 flex flex-col justify-center items-center">
-            <LoteriasCaixaIcon className="w-16 h-16 animate-pulse animation-duration-5000 text-white" />
+        <div className="h-screen col-span-4 bg-endeavour-600 rounded-md flex flex-col justify-center items-center">
+          <div className="w-full flex flex-col justify-center items-center px-8">
+            <LoteriasCaixaIcon
+              className="w-16 h-16 text-white hover:animate-bounce"
+              secondColor={"#F99500"}
+            />
 
-            <h2 className="text-white text-6xl">Loterias</h2>
-            <p className="text-indigo-100 mt-4 capitalize font-thin tracking-wider leading-7">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed,
-              dolore?
+            <h2 className=" text-6xl text-white font-normal font mb-8">
+              Loterias
+            </h2>
+            <p className="text-slate-100 mt-4 text-justify md:text-left">
+              Análise de dados avançada para identificar padrões nos resultados
+              dos jogos da loteria. Nosso algoritmo vasculha milhões de
+              resultados passados para encontrar probabilidades, frequências e
+              outras tendências que podem ajudar você a tomar decisões mais
+              inteligentes sobre seus jogos.
             </p>
 
-            <div className="flex flex-row gap-2 my-4 text-endeavour-600">
-              <span className="text-2xl w-12 h-12 bg-white rounded-full flex justify-center items-center">
-                0
-              </span>
-              <span className="text-2xl w-12 h-12 bg-white rounded-full flex justify-center items-center">
-                0
-              </span>
-              <span className="text-2xl w-12 h-12 bg-white rounded-full flex justify-center items-center">
-                0
-              </span>
-              <span className="text-2xl w-12 h-12 bg-white rounded-full flex justify-center items-center">
-                0
-              </span>
-              <span className="text-2xl w-12 h-12 bg-white rounded-full flex justify-center items-center">
-                0
-              </span>
-            </div>
+            <Lottery />
 
-            <a
-              href="#"
-              className="uppercase inline-block mt-8 text-sm bg-white py-2 px-4 rounded font-semibold hover:bg-indigo-100"
-            >
+            <button className="uppercase inline-block m-4 text-sm bg-pizazz-500 text-white py-2 px-4 rounded font-semibold hover:bg-pizazz-600 focus:outline-none focus:ring-2 focus:ring-pizazz-400">
               ANALISAR
-            </a>
+            </button>
           </div>
         </div>
         <div className="h-auto col-span-1 overflow-hidden">
           <div className="bg-white py-3 px-4 rounded-lg flex justify-around items-center ">
             <input
               type="text"
-              placeholder="seach"
-              className=" bg-gray-100 rounded-md  outline-none pl-2 ring-indigo-700 w-full mr-2 p-2"
+              placeholder="buscar"
+              className=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-endeavour-600 focus:border-endeavour-600 block w-full p-2.5 mr-2 "
             />
             <span>
               <svg

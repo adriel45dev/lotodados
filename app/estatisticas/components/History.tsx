@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import BackIcon from "@/public/icons/BackIcon";
 import NextIcon from "@/public/icons/nextIcon";
-import LoteriasCaixaIcon from "@/public/icons/LoteriasCaixaIcon";
 import TrevoIcon from "@/public/icons/TrevoIcon";
 import TLoteria from "@/app/shared/types/loteria.types";
 import TModalidade from "@/app/shared/types/modalidade.types";

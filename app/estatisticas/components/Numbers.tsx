@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import TModalidade from "@/app/shared/types/modalidade.types";
 import NextIcon from "@/public/icons/nextIcon";
-import BackIcon from "@/public/icons/BackIcon";
 import ApexCharts from "apexcharts";
+import PreviousIcon from "@/public/icons/previousIcon";
 
 type NumbersProps = {
   data?: string[][];
@@ -194,7 +194,7 @@ export default function Numbers({ data, modalidade }: NumbersProps) {
           }}
           onClick={handlerPreviousNumber}
         >
-          <BackIcon className="w-8 h-8" />
+          <PreviousIcon className="w-8 h-8" />
         </button>
         <div
           className="w-16 h-16 text-2xl font-normal rounded-full text-white flex justify-center items-center hover:opacity-50 mb-8"

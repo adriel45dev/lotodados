@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import BackIcon from "@/public/icons/BackIcon";
 import NextIcon from "@/public/icons/nextIcon";
 import TrevoIcon from "@/public/icons/TrevoIcon";
 import TLoteria from "@/app/shared/types/loteria.types";
 import TModalidade from "@/app/shared/types/modalidade.types";
+import PreviousIcon from "@/public/icons/previousIcon";
 
 type HistoryProps = {
   data?: TLoteria[];
@@ -46,7 +46,7 @@ export default function History({ data, modalidade }: HistoryProps) {
           }}
           onClick={handlerPreviousNumber}
         >
-          <BackIcon className="w-8 h-8" />
+          <PreviousIcon className="w-8 h-8" />
         </button>
 
         <div className="flex flex-row flex-wrap justify-center items-center gap-2">

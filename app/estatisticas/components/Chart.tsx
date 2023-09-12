@@ -281,13 +281,11 @@ export default function Chart({ data, modalidade }: TChartProps) {
 
   const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const newView = e.target.value as EChartOrientation;
-    console.log(newView);
     setChartView(newView);
   };
 
   useEffect(() => {
     if (seriesData) {
-      console.log("Carregar os dados no gráfico");
       loadChart();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

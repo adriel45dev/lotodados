@@ -29,9 +29,12 @@ export default function Hero() {
 
             <Lottery />
 
-            <button className="uppercase inline-block m-4 text-sm bg-pizazz-500 text-white py-2 px-4 rounded font-semibold hover:bg-pizazz-600 focus:outline-none focus:ring-2 focus:ring-pizazz-400">
+            <Link
+              href={"/estatisticas/maismilionaria"}
+              className="uppercase inline-block m-4 text-sm bg-pizazz-500 text-white py-2 px-4 rounded font-semibold hover:bg-pizazz-600 focus:outline-none focus:ring-2 focus:ring-pizazz-400"
+            >
               ANALISAR
-            </button>
+            </Link>
           </div>
         </div>
         <div className="h-auto col-span-1 overflow-hidden">

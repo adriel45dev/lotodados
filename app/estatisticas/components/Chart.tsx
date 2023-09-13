@@ -417,14 +417,14 @@ export default function Chart({ data, modalidade }: TChartProps) {
           ordem decrescente, desde o mais sorteado até o menos sorteado, para
           que você identifique rapidamente quais são os {`"números quentes"`}{" "}
           atualmente. Além disso, é possível ordenar os dados de diversas
-          maneiras, para analisar os números sob diferentes perspectivas: Ordem
-          crescente Ordem decrescente Números ímpares Números ímpares crescente
-          Números ímpares decrescente Números pares Números pares crescente
-          Números pares decrescente Ordem aleatória Com essas opções, você
-          consegue obter insights valiosos sobre os padrões nos sorteios,
-          ajudando a montar sua aposta de maneira estratégica e aumentar suas
-          chances de ganhar. Não perca tempo e comece já a analisar os números
-          mais quentes!
+          maneiras, para analisar os números sob diferentes perspectivas: ordem
+          crescente, ordem decrescente, números ímpares, números ímpares
+          crescente, números ímpares decrescente, números pares, números pares
+          crescente e números pares decrescente. Com essas opções, você consegue
+          obter insights valiosos sobre os padrões nos sorteios, ajudando a
+          montar sua aposta de maneira estratégica e aumentar suas chances de
+          ganhar. Não perca tempo e comece já a analisar os números mais
+          quentes!
         </p>
       </div>
     </div>

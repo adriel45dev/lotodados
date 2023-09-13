@@ -106,6 +106,7 @@ const MODALIDADES_LOTERIA: TModalidade[] = [
 const THEME_COLOR = {
   blue: "#0065B7",
   orange: "#F99500",
+  gray: "#ADC0C4",
 };
 
 export { MODALIDADES_LOTERIA, URI_CAIXA, THEME_COLOR };

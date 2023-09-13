@@ -15,6 +15,7 @@ type TNumberTable = {
 
 export default function AnalyseTable({ data, modalidade }: AnalyseTableProps) {
   const [table, setTable] = useState<TNumberTable[]>([]);
+  //   const [isHovered, setIsHovered] = useState(false);
 
   const numberSelection = table
     .filter((table) => table.status)
@@ -49,34 +50,46 @@ export default function AnalyseTable({ data, modalidade }: AnalyseTableProps) {
     setTable(newTable);
   };
 
+  //   const handleMouseOver = () => {
+  //     setIsHovered(true);
+  //   };
+
+  //   const handleMouseOut = () => {
+  //     setIsHovered(false);
+  //   };
+
   return (
     <section>
-      <div className="flex flex-row flex-wrap gap-2 px-8 mb-8 justify-center items-center">
+      <div className="flex flex-row flex-wrap gap-2 px-8 mb-12 justify-center items-center">
         {table.map((table, key) => (
           <button
             key={key}
-            className="w-12 h-12 text-2xl text-white rounded-full flex justify-center items-center"
+            className={`w-12 h-12 text-2xl text-white rounded-full flex justify-center items-center `}
             style={{
               backgroundColor: table.status
-                ? THEME_COLOR.orange
-                : modalidade?.primaryColor,
+                ? modalidade?.primaryColor
+                : THEME_COLOR.gray,
             }}
             onClick={() => handleNumberSelection(key)}
+            // onMouseOver={handleMouseOver}
+            // onMouseOut={handleMouseOut}
           >
             {table.number}
           </button>
         ))}
       </div>
 
-      <div className="flex flex-row flex-wrap gap-2 px-8 justify-center items-center">
-        {numberSelection.map((t, key) => (
-          <span
-            key={key}
-            className="w-12 h-12 text-2xl text-white rounded-full flex justify-center items-center bg-green-500"
-          >
-            {t.number}
-          </span>
-        ))}
+      <div className="flex flex-col justify-center items-center">
+        <div className="flex flex-row flex-wrap w-fit gap-2 px-8 justify-center items-center border-0 border-b-2 border-b-riptide-300">
+          {numberSelection.map((t, key) => (
+            <span
+              key={key}
+              className="w-12 h-12 text-2xl text-slate-700 flex justify-center items-center "
+            >
+              {t.number}
+            </span>
+          ))}
+        </div>
       </div>
     </section>
   );

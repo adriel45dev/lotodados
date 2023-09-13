@@ -3,7 +3,7 @@ import LoteriasCaixaIcon from "@/public/icons/LoteriasCaixaIcon";
 
 import Link from "next/link";
 
-import { MODALIDADES_LOTERIA } from "../config";
+import { MODALIDADES_LOTERIA, THEME_COLOR } from "../config";
 import Lottery from "./Lottery";
 import { useEffect, useState } from "react";
 import TModalidade from "../shared/types/modalidade.types";
@@ -38,7 +38,7 @@ export default function Hero() {
           <div className="w-full flex flex-col justify-center items-center px-8">
             <LoteriasCaixaIcon
               className="w-16 h-16 text-white hover:animate-bounce"
-              secondColor={"#F99500"}
+              secondColor={THEME_COLOR.orange}
             />
 
             <h2 className=" text-6xl text-white font-normal font mb-8">
@@ -89,7 +89,7 @@ export default function Hero() {
             </span>
           </div>
           <div className="bg-white  rounded-md">
-            <h1 className="text-center text-xl my-4  bg-[#F99500] py-2 rounded-md border-b-2 cursor-pointer  text-white">
+            <h1 className="text-center text-xl my-4 bg-[#F99500] py-2 rounded-md border-b-2 cursor-pointer text-white">
               Jogos
             </h1>
             <div className="bg-white rounded-md list-none text-center font-bold text-sm">

@@ -56,7 +56,7 @@ export default function Analyse() {
 
   return (
     <section>
-      <div className="flex gap-2">
+      <div className="flex flex-row flex-wrap gap-2 px-4">
         {Array.from({ length: maxNumbers }, (_, key) => (
           <input
             key={key}

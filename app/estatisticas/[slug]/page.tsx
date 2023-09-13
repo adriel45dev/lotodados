@@ -14,6 +14,7 @@ import Numbers from "../components/Numbers";
 import History from "../components/History";
 import dynamic from "next/dynamic";
 import Analyse from "../components/Analyse";
+import AnalyseTable from "../components/AnalyseTable";
 
 const Chart = dynamic(() => import("@/app/estatisticas/components/Chart"), {
   ssr: false,
@@ -92,7 +93,9 @@ export default function Estatisticas({ params }: { params: { slug: string } }) {
             {activeTab == "Concursos" && (
               <History data={data} modalidade={modalidade} />
             )}
-            {activeTab == "Analisar" && <Analyse />}
+            {activeTab == "Analisar" && (
+              <AnalyseTable data={data} modalidade={modalidade} />
+            )}
           </EstatisticasCard>
         </>
       )}

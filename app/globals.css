@@ -17,6 +17,10 @@
   .font {
     font-family: "Tilt Warp", cursive;
   }
+
+  .no-focus {
+    pointer-events: none;
+  }
 }
 
 @layer components {
@@ -28,5 +32,17 @@
   }
   .btn {
     @apply text-center block border border-white rounded hover:border-gray-200 text-blue-500 hover:bg-gray-200 py-2 px-4;
+  }
+
+  .number {
+    @apply [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none;
+  }
+
+  .error {
+    @apply bg-red-50 border border-red-500 text-red-900 placeholder-red-700 text-sm rounded-lg focus:ring-red-500;
+  }
+
+  .success {
+    @apply bg-endeavour-50 border border-endeavour-500 text-endeavour-900 placeholder-endeavour-700 text-sm rounded-lg focus:ring-endeavour-500;
   }
 }

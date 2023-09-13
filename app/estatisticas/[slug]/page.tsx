@@ -13,6 +13,7 @@ import TLoteria from "@/app/shared/types/loteria.types";
 import Numbers from "../components/Numbers";
 import History from "../components/History";
 import dynamic from "next/dynamic";
+import Analyse from "../components/Analyse";
 
 const Chart = dynamic(() => import("@/app/estatisticas/components/Chart"), {
   ssr: false,
@@ -91,6 +92,7 @@ export default function Estatisticas({ params }: { params: { slug: string } }) {
             {activeTab == "Concursos" && (
               <History data={data} modalidade={modalidade} />
             )}
+            {activeTab == "Analisar" && <Analyse />}
           </EstatisticasCard>
         </>
       )}

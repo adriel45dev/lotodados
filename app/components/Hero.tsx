@@ -1,11 +1,36 @@
+"use client";
 import LoteriasCaixaIcon from "@/public/icons/LoteriasCaixaIcon";
 
 import Link from "next/link";
 
 import { MODALIDADES_LOTERIA } from "../config";
 import Lottery from "./Lottery";
+import { useEffect, useState } from "react";
+import TModalidade from "../shared/types/modalidade.types";
 
 export default function Hero() {
+  const [search, setSearch] = useState("");
+  const [modalidadeSearch, setModalidadeSearch] = useState<TModalidade[]>();
+
+  const filterSearch = (value: string) => {
+    const filtered = MODALIDADES_LOTERIA.filter((modalidade) => {
+      return modalidade.name.includes(value.toLowerCase());
+    });
+
+    let sorted = filtered.sort((a, b) => {
+      return a.name.indexOf(value) - b.name.indexOf(value);
+    });
+
+    setModalidadeSearch(sorted);
+  };
+
+  useEffect(() => {
+    filterSearch(search);
+  }, [search]);
+
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearch(e.target.value);
+  };
   return (
     <section>
       <div className="bg-gray-100 sm:grid grid-cols-5 px-0 py-0 md:py-6 md:px-4 min-h-full lg:min-h-screen space-y-6 sm:space-y-0 sm:gap-4">
@@ -41,6 +66,8 @@ export default function Hero() {
           <div className="bg-white py-3 px-4 rounded-lg flex justify-around items-center ">
             <input
               type="text"
+              onChange={handleSearch}
+              value={search}
               placeholder="buscar"
               className=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-endeavour-600 focus:border-endeavour-600 block w-full p-2.5 mr-2 "
             />
@@ -66,32 +93,61 @@ export default function Hero() {
               Jogos
             </h1>
             <div className="bg-white rounded-md list-none text-center font-bold text-sm">
-              {MODALIDADES_LOTERIA.map((e, i) => {
-                return (
-                  <Link
-                    href={`/estatisticas/${e.name}`}
-                    key={i}
-                    className={
-                      "py-4 border-b-2 group hover:scale-125 hover:bg-orange-100 rounded-2xl flex flex-col items-center"
-                    }
-                    style={{
-                      color: e.primaryColor,
-                    }}
-                  >
-                    <div className="grid grid-cols-6 justify-center items-center gap-3 px-auto ">
-                      <div className="col-span-2 flex justify-end items-center ">
-                        <LoteriasCaixaIcon
-                          className="w-6 h-6"
-                          primaryColor={e.primaryColor}
-                          secondColor={e.secondaryColor}
-                        />
-                      </div>
+              {!modalidadeSearch &&
+                MODALIDADES_LOTERIA.map((e, i) => {
+                  return (
+                    <Link
+                      href={`/estatisticas/${e.name}`}
+                      key={i}
+                      className={
+                        "py-4 border-b-2 group hover:scale-125 hover:bg-orange-100 rounded-2xl flex flex-col items-center"
+                      }
+                      style={{
+                        color: e.primaryColor,
+                      }}
+                    >
+                      <div className="grid grid-cols-6 justify-center items-center gap-3 px-auto ">
+                        <div className="col-span-2 flex justify-end items-center ">
+                          <LoteriasCaixaIcon
+                            className="w-6 h-6"
+                            primaryColor={e.primaryColor}
+                            secondColor={e.secondaryColor}
+                          />
+                        </div>
 
-                      <span className="col-span-4 text-start">{e.title}</span>
-                    </div>
-                  </Link>
-                );
-              })}
+                        <span className="col-span-4 text-start">{e.title}</span>
+                      </div>
+                    </Link>
+                  );
+                })}
+
+              {modalidadeSearch &&
+                modalidadeSearch.map((e, i) => {
+                  return (
+                    <Link
+                      href={`/estatisticas/${e.name}`}
+                      key={i}
+                      className={
+                        "py-4 border-b-2 group hover:scale-125 hover:bg-orange-100 rounded-2xl flex flex-col items-center"
+                      }
+                      style={{
+                        color: e.primaryColor,
+                      }}
+                    >
+                      <div className="grid grid-cols-6 justify-center items-center gap-3 px-auto ">
+                        <div className="col-span-2 flex justify-end items-center ">
+                          <LoteriasCaixaIcon
+                            className="w-6 h-6"
+                            primaryColor={e.primaryColor}
+                            secondColor={e.secondaryColor}
+                          />
+                        </div>
+
+                        <span className="col-span-4 text-start">{e.title}</span>
+                      </div>
+                    </Link>
+                  );
+                })}
             </div>
           </div>
         </div>

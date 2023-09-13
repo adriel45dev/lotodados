@@ -29,12 +29,12 @@ export default function Navbar() {
             <div className="flex items-center">
               <ul className="sm:flex space-x-4 hidden items-center">
                 <li>
-                  <a
-                    href="#"
+                  <Link
+                    href="/estatisticas"
                     className="text-gray-700 hover:text-endeavour-600 text-md "
                   >
                     Estatísticas
-                  </a>
+                  </Link>
                 </li>
                 <li>
                   <a

@@ -30,7 +30,7 @@ export default function Hero() {
             <Lottery />
 
             <Link
-              href={"/estatisticas/maismilionaria"}
+              href={"/estatisticas"}
               className="uppercase inline-block m-4 text-sm bg-pizazz-500 text-white py-2 px-4 rounded font-semibold hover:bg-pizazz-600 focus:outline-none focus:ring-2 focus:ring-pizazz-400"
             >
               ANALISAR

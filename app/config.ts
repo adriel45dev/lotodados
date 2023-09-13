@@ -20,7 +20,7 @@ const MODALIDADES_LOTERIA: TModalidade[] = [
     totalNumbers: 61,
     startPoin: 1,
     endPoint: 60,
-    maxNumbers: -1,
+    maxNumbers: 6,
     channel: `${URI_CAIXA}/Mega-Sena.aspx`,
   },
   {
@@ -42,7 +42,7 @@ const MODALIDADES_LOTERIA: TModalidade[] = [
     totalNumbers: 81,
     startPoin: 1,
     endPoint: 80,
-    maxNumbers: -1,
+    maxNumbers: 6,
     channel: `${URI_CAIXA}/Quina.aspx`,
   },
   {
@@ -53,7 +53,7 @@ const MODALIDADES_LOTERIA: TModalidade[] = [
     totalNumbers: 100,
     startPoin: 0,
     endPoint: 99,
-    maxNumbers: -1,
+    maxNumbers: 6,
     channel: `${URI_CAIXA}/Lotomania.aspx`,
   },
   {
@@ -64,7 +64,7 @@ const MODALIDADES_LOTERIA: TModalidade[] = [
     totalNumbers: 81,
     startPoin: 1,
     endPoint: 80,
-    maxNumbers: -1,
+    maxNumbers: 6,
     channel: `${URI_CAIXA}/Timemania.aspx`, // time do coração
   },
   {
@@ -75,7 +75,7 @@ const MODALIDADES_LOTERIA: TModalidade[] = [
     totalNumbers: 51,
     startPoin: 1,
     endPoint: 50,
-    maxNumbers: -1,
+    maxNumbers: 6,
     channel: `${URI_CAIXA}/Dupla-Sena.aspx`, // dois sorteios
   },
   {
@@ -86,7 +86,7 @@ const MODALIDADES_LOTERIA: TModalidade[] = [
     totalNumbers: 32,
     startPoin: 1,
     endPoint: 31,
-    maxNumbers: -1,
+    maxNumbers: 6,
     channel: `${URI_CAIXA}/Super-Sete.aspx`, // mes da sorte
   },
 
@@ -98,7 +98,7 @@ const MODALIDADES_LOTERIA: TModalidade[] = [
     totalNumbers: 10,
     startPoin: 0,
     endPoint: 9,
-    maxNumbers: -1,
+    maxNumbers: 6,
     channel: `${URI_CAIXA}/Super-Sete.aspx`,
   },
 ];

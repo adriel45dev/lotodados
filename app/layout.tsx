@@ -1,3 +1,4 @@
+import Head from "next/head";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 import QueryClient from "./components/QueryClient";
@@ -20,6 +21,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <Head>
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2816167373541661"
+          crossOrigin="anonymous"
+        ></script>
+      </Head>
       <body>
         <QueryClient>
           <Navbar />
@@ -27,6 +35,11 @@ export default function RootLayout({
           <Footer />
         </QueryClient>
         <Script src="../node_modules/flowbite/dist/flowbite.min.js"></Script>
+        <Script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2816167373541661"
+          crossOrigin="anonymous"
+        ></Script>
       </body>
     </html>
   );

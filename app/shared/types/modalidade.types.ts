@@ -4,7 +4,7 @@ type TModalidade = {
   primaryColor: string;
   secondaryColor: string;
   totalNumbers: number;
-  maxNumbers: number;
+  minNumbers: number;
   startPoin: number;
   endPoint: number;
   channel: string;

@@ -35,7 +35,7 @@ export default function AnalyseTable({ data, modalidade }: AnalyseTableProps) {
   const handleNumberSelection = (key: number) => {
     const newTable = [...table];
 
-    if (table.filter((t) => t.status).length >= modalidade!.maxNumbers) {
+    if (table.filter((t) => t.status).length >= modalidade!.minNumbers) {
       newTable.splice(key, 1, {
         ...newTable[key],
         status: false,
